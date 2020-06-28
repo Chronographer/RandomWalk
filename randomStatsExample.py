@@ -11,46 +11,46 @@ March 29, 2020
 import numpy as np
 import matplotlib.pyplot as plt
 
-npoints = 100     # nr of steps in walk
-steprange = 1.0
-nruns = 10000      # nr of walks to do for statistics.
-p = 0.5          # probability of moving right.
+numberPoints = 100  # number of steps in walk
+stepRange = 1.0
+numberRuns = 10000  # number of walks to do for statistics.
+p = 0.5  # probability of moving right.
 
 # Create arrays to store statistics:
-sumarray = np.zeros(npoints)
-s2array = np.zeros(npoints)
+sumArray = np.zeros(numberPoints)
+s2array = np.zeros(numberPoints)
 
-for irun in range(nruns):
+for iRun in range(numberRuns):
 
     # Start a new random walk
-    iStep = 0             # start count of number of steps
-    x = 0.0               # initial position
+    iStep = 0  # start count of number of steps
+    x = 0.0  # initial position
     xWalk = []
 
     # Do the walk -- move x by desired steps.
-    while iStep < npoints:
+    while iStep < numberPoints:
         u = np.random.random_sample()
         if u < p:
-            x = x + steprange
+            x = x + stepRange
         else:
-            x = x - steprange
+            x = x - stepRange
         xWalk.append(x)
         iStep += 1
     xWalk = np.array(xWalk)
 
     # accumulate sums needed to do statistics.  Done as array, all at once.
-    sumarray = sumarray + xWalk
+    sumArray = sumArray + xWalk
     s2array = s2array + xWalk ** 2
 
 # At end of all runs, divide by total number of walks to get average,
 # and variance (sigma**2).  This is done for all points all at once.
-xAverage = sumarray / nruns
-x2average = s2array/nruns
+xAverage = sumArray / numberRuns
+x2average = s2array / numberRuns
 sigmaSquared = x2average - xAverage * xAverage
 
 # Make plot to visualize
-plt.plot(range(npoints), xAverage, label="average")
-plt.plot(range(npoints), sigmaSquared, label="variance")
+plt.plot(range(numberPoints), xAverage, label="average")
+plt.plot(range(numberPoints), sigmaSquared, label="variance")
 plt.legend()
 plt.xlabel("# of steps")
 plt.ylabel("displacement")
