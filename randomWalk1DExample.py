@@ -11,8 +11,10 @@ March 28, 2015
 from vpython import *
 import numpy
 
+
 numberSteps = 1000
 numberRuns = 10000
+stepRange = 1.0
 print("#Measurement of <x> and <x^2> versus step i for 3D random walk.")
 print("# number of steps, number of averaging runs: ", numberSteps, numberRuns)
 print("#i, <r>, <r^2>")
@@ -30,41 +32,31 @@ swalk = numpy.zeros(numberSteps)
 
 def integer1Dwalk(numberSteps):
     """1D integer random walk of numberSteps steps"""
-
-    # get set of integers -- if u<1/2 take - move, else take + move
-    steps = numpy.sign(numpy.random.random_sample(numberSteps) - 0.5)
-
-    # measure position x for each step and place in xWalk
-    xwalk = numpy.zeros(numberSteps)
+    steps = numpy.sign(numpy.random.random_sample(numberSteps) - 0.5)  # get set of integers -- if u<1/2 take - move, else take + move
+    xWalk = numpy.zeros(numberSteps)  # measure position x for each step and place in xWalk
     iStep = 0
     x = 0
     while iStep < numberSteps:
-        xwalk[iStep] = x
+        xWalk[iStep] = x
         x = x + int(steps[iStep])
         iStep += 1
+    return xWalk
 
-    return xwalk
 
-
-def uniform1Dwalk(nsteps, stepRange=1.0):
+def uniform1Dwalk(numberSteps, stepRange):
     """1D uniform random walk of length numberSteps on [-stepRange, stepRange)"""
-
-    # get random set numbers from -stepRange to stepRange.
-    steps = 2.0 * stepRange * (numpy.random.random_sample(nsteps) - 0.5)
-
-    # measure position x for each step and place in xWalk
-    xwalk = 0.0*numpy.zeros(nsteps)  # make sure this is a float.
+    steps = 2.0 * stepRange * (numpy.random.random_sample(numberSteps) - 0.5)  # get random set numbers from -stepRange to stepRange.
+    xWalk = 0.0 * numpy.zeros(numberSteps)  # measure position x for each step and place in xWalk  # make sure this is a float.
     iStep = 0
     x = 0.0
-    while iStep < nsteps:
-        xwalk[iStep] = x
+    while iStep < numberSteps:
+        xWalk[iStep] = x
         x = x + steps[iStep]
         iStep += 1
+    return xWalk
 
-    return xwalk
 
-
-# Do nrun runs:
+# Do numberRuns runs:
 iRun = 0
 while iRun < numberRuns:
     # Do this line to have integer steps.
@@ -73,12 +65,12 @@ while iRun < numberRuns:
     #ywalk = integer1Dwalk(numberSteps)
     #zwalk = integer1Dwalk(numberSteps)
     # Do this to have uniform steps.
-    xwalk = uniform1D(numberSteps)
+    xWalk = uniform1Dwalk(numberSteps, stepRange)
 
     # add xWalk to statistics sum used to get an average of x versus step
-    swalk = swalk + xwalk  # shortcut notations used below
+    swalk = swalk + xWalk  # shortcut notations used below
     # add xWalk**2 to statistics sum used to get an average of x^2 versus step
-    s2walk += xwalk*xwalk
+    s2walk += xWalk * xWalk
     #s2walk += xWalk*xWalk + ywalk*ywalk + zwalk*zwalk
 
     iRun += 1

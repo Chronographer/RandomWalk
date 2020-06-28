@@ -21,7 +21,6 @@ sumArray = np.zeros(numberPoints)
 s2array = np.zeros(numberPoints)
 
 for iRun in range(numberRuns):
-
     # Start a new random walk
     iStep = 0  # start count of number of steps
     x = 0.0  # initial position
@@ -42,8 +41,7 @@ for iRun in range(numberRuns):
     sumArray = sumArray + xWalk
     s2array = s2array + xWalk ** 2
 
-# At end of all runs, divide by total number of walks to get average,
-# and variance (sigma**2).  This is done for all points all at once.
+# At end of all runs, divide by total number of walks to get average, and variance (sigma**2). This is done for all points all at once.
 xAverage = sumArray / numberRuns
 x2average = s2array / numberRuns
 sigmaSquared = x2average - xAverage * xAverage
