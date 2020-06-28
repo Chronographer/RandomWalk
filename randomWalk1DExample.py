@@ -32,7 +32,7 @@ swalk = numpy.zeros(numberSteps)
 
 def integer1Dwalk(numberSteps):
     """1D integer random walk of numberSteps steps"""
-    steps = numpy.sign(numpy.random.random_sample(numberSteps) - 0.5)  # get set of integers -- if u<1/2 take - move, else take + move
+    steps = numpy.sign(numpy.random.random_sample(numberSteps) - 0.5)  # get set of integers -- if u < 1/2 take - move, else take + move
     xWalk = numpy.zeros(numberSteps)  # measure position x for each step and place in xWalk
     iStep = 0
     x = 0
