@@ -18,8 +18,8 @@ print("# number of steps, number of averaging runs: ", nsteps, nruns)
 print("#i, <r>, <r^2>")
 
 # make visual plot
-random_plot = canvas(xtitle='i', ytitle='average', width=600, height=350, background=color.white, foreground=color.black)
-random_dots = gdots(color=color.red)
+randomPlot = canvas(xtitle='i', ytitle='average', width=600, height=350, background=color.white, foreground=color.black)
+randomDots = gdots(color=color.red)
 other_random_dots = gdots(color=color.blue)
 theory = gcurve(color=color.black)
 
@@ -32,27 +32,27 @@ def integer1Dwalk(nsteps):
     """1D integer random walk of nsteps steps"""
 
     # get set of integers -- if u<1/2 take - move, else take + move
-    steps = numpy.sign( numpy.random.random_sample(nsteps) - 0.5 )
+    steps = numpy.sign(numpy.random.random_sample(nsteps) - 0.5)
 
-    # measure position x for each step and place in xwalk
+    # measure position x for each step and place in xWalk
     xwalk = numpy.zeros(nsteps)
-    istep = 0
+    iStep = 0
     x = 0
-    while istep < nsteps:
-        xwalk[istep] = x
-        x = x + int(steps[istep])
-        istep += 1
+    while iStep < nsteps:
+        xwalk[iStep] = x
+        x = x + int(steps[iStep])
+        iStep += 1
 
     return xwalk
 
 
 def uniform1Dwalk(nsteps, steprange=1.0):
-    """1D uniform random walk of length nsteps on [-steprange,steprange)"""
+    """1D uniform random walk of length nsteps on [-steprange, steprange)"""
 
     # get random set numbers from -steprange to steprange.
     steps = 2.0*steprange*( numpy.random.random_sample(nsteps) - 0.5 )
 
-    # measure position x for each step and place in xwalk
+    # measure position x for each step and place in xWalk
     xwalk = 0.0*numpy.zeros(nsteps)  # make sure this is a float.
     istep = 0
     x = 0.0
@@ -67,29 +67,29 @@ def uniform1Dwalk(nsteps, steprange=1.0):
 irun = 0
 while irun < nruns:
     # Do this line to have integer steps.
-    #xwalk = integer1Dwalk( nsteps )
+    #xWalk = integer1Dwalk(nsteps)
     # Add this to do in 3 D
-    ##ywalk = integer1Dwalk( nsteps )
-    ##zwalk = integer1Dwalk( nsteps )
+    ##ywalk = integer1Dwalk(nsteps)
+    ##zwalk = integer1Dwalk(nsteps)
     # Do this to have uniform steps.
     xwalk = uniform1D(nsteps)
 
-    # add xwalk to statistics sum used to get an average of x versus step
+    # add xWalk to statistics sum used to get an average of x versus step
     swalk = swalk + xwalk  # shortcut notations used below
-    # add xwalk**2 to statistics sum used to get an average of x^2 versus step
+    # add xWalk**2 to statistics sum used to get an average of x^2 versus step
     s2walk += xwalk*xwalk
-    #s2walk += xwalk*xwalk + ywalk*ywalk + zwalk*zwalk
+    #s2walk += xWalk*xWalk + ywalk*ywalk + zwalk*zwalk
 
     irun += 1
 
 # average of x = sum of x_i / N, N = number of runs you are averaging over
-xaverage = swalk/nruns
+xAverage = swalk / nruns
 x2average = s2walk/nruns
 
 # plot averages
 for i in range(nsteps):
-    print(i, xaverage[i], x2average[i])
-    random_dots.plot(pos=(i, x2average[i]))
-    other_random_dots.plot(pos=(i, xaverage[i]))
+    print(i, xAverage[i], x2average[i])
+    randomDots.plot(pos=(i, x2average[i]))
+    other_random_dots.plot(pos=(i, xAverage[i]))
     theory.plot(pos=(i, i))
 

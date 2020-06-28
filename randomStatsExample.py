@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 npoints = 100     # nr of steps in walk
 steprange = 1.0
 nruns = 10000      # nr of walks to do for statistics.
-p = 0.5          # prob of moving right.
+p = 0.5          # probability of moving right.
 
 # Create arrays to store statistics:
 sumarray = np.zeros(npoints)
@@ -23,34 +23,34 @@ s2array = np.zeros(npoints)
 for irun in range(nruns):
 
     # Start a new random walk
-    istep = 0             # start count of number of steps
+    iStep = 0             # start count of number of steps
     x = 0.0               # initial position
-    xwalk = []
+    xWalk = []
 
     # Do the walk -- move x by desired steps.
-    while istep < npoints:
+    while iStep < npoints:
         u = np.random.random_sample()
         if u < p:
             x = x + steprange
         else:
             x = x - steprange
-        xwalk.append(x)
-        istep += 1
-    xwalk = np.array(xwalk)
+        xWalk.append(x)
+        iStep += 1
+    xWalk = np.array(xWalk)
 
     # accumulate sums needed to do statistics.  Done as array, all at once.
-    sumarray = sumarray + xwalk
-    s2array = s2array + xwalk**2
+    sumarray = sumarray + xWalk
+    s2array = s2array + xWalk ** 2
 
 # At end of all runs, divide by total number of walks to get average,
 # and variance (sigma**2).  This is done for all points all at once.
-xaverage = sumarray/nruns
+xAverage = sumarray / nruns
 x2average = s2array/nruns
-sigmasquared = x2average - xaverage*xaverage
+sigmaSquared = x2average - xAverage * xAverage
 
 # Make plot to visualize
-plt.plot(range(npoints), xaverage, label="average")
-plt.plot(range(npoints), sigmasquared, label="variance")
+plt.plot(range(npoints), xAverage, label="average")
+plt.plot(range(npoints), sigmaSquared, label="variance")
 plt.legend()
 plt.xlabel("# of steps")
 plt.ylabel("displacement")
