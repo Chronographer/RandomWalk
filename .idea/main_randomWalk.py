@@ -12,9 +12,7 @@ stepRange = 1     # the magnitude of the min/max step size using walkerObject.wa
 averageList = []  # list containing the average position of the walker for each run
 runList = []  # list for holding integers from 0 to numberOfRuns, used for plotting purposes.
 
-
 drunk = walkerObject.walker(startPosition, walkLength)
-
 
 for i in range(0, numberOfRuns):
     drunk.walkUniform(minStepSize, maxStepSize)
@@ -25,19 +23,12 @@ for i in range(0, numberOfRuns):
     runList.append(i)
     drunk.reset()
 
-    """
-    plt.plot(drunk.stepList, drunk.positionList)
-    plt.plot(drunk.stepList, drunk.positionList, 'b.')
-    plt.xlabel("Step number")
-    plt.ylabel("Walker position")
-    plt.show()
-    """
-
-"""
+"""  ### uncomment to plot the average position at the end of each run for each run in the order the runs occured.
 plt.plot(runList, averageList)
 plt.plot(runList, averageList, "b.")
 plt.ylabel("Average run position")
 plt.xlabel("Run number")
+plt.grid(True)
 plt.show()
 """
 
@@ -45,4 +36,5 @@ plt.hist(averageList, 100)
 plt.suptitle("histogram of avarage position after each run")
 plt.xlabel("average position after run")
 plt.ylabel("number of runs in respective range")
+plt.grid(False)
 plt.show()
