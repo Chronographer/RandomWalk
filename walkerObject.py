@@ -10,9 +10,6 @@ class walker:
         self.stepList = []
 
     def walk(self, minStep, maxStep):
-        """self.stepArray = np.arange(0, self.walkSize)
-        self.positionArray = """
-
         for i in range(0, self.walkSize):
             self.stepList.append(i)
             self.positionList.append(self.position.x)
