@@ -7,6 +7,7 @@ class walker:
         self.startPosition = startPosition
         self.position = startPosition
         self.positionList = []
+        self.displacementSquared = []
         self.stepList = []
 
     def walkUniform(self, minStep, maxStep):
@@ -14,16 +15,19 @@ class walker:
         for i in range(0, self.walkSize):
             self.stepList.append(i)
             self.positionList.append(self.position)
+            self.displacementSquared.append(self.position ** 2)
             self.position = self.position + randomStepList[i]
 
     def walkRange(self, stepRange):
         for i in range(0, self.walkSize):
             self.stepList.append(i)
             self.positionList.append(self.position)
+            self.displacementSquared.append(self.position ** 2)
             self.position = self.position + (2.0 * stepRange * (np.random.random_sample() - 0.5))
 
     def reset(self):
         self.positionList.clear()
         self.stepList.clear()
+        self.displacementSquared.clear()
         self.position = self.startPosition
 

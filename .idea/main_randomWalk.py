@@ -4,8 +4,8 @@ import walkerObject
 
 
 startPosition = 0  # the starting position of the walker (the walkers position is reset to this after each run)
-walkLength = 10000   # the number of steps taken by the walker object for each run
-numberOfRuns = 100  # the number of runs the walker will perform
+walkLength = 100   # the number of steps taken by the walker object for each run
+numberOfRuns = 1000  # the number of runs the walker will perform
 minStepSize = -1  # the lower bound of the possible step size using walkerObject.walkUniform()
 maxStepSize = 1   # the upper bound of the possible step size using walkerObject.walkUniform()
 stepRange = 1     # the magnitude of the min/max step size using walkerObject.walkRange()
@@ -41,15 +41,20 @@ def compareMultipleWalkers(drunk1, drunk2):
 
 def plotAverageDisplacementVsTime(drunk):
     runList = []  # list to hold integers from 0 to numberOfRuns, used for plotting purposes
-    displacementSquaredList = []
+    meanDisplacementSquaredList = []
+    for i in range(0, walkLength):
+        meanDisplacementSquaredList.append(0)
+        runList.append(i)
     for i in range(0, numberOfRuns):
         drunk.walkUniform(minStepSize, maxStepSize)
-        displacementSquaredList.append(drunk.position ** 2)
-        runList.append(i)
+        for index in range(0, walkLength):
+            meanDisplacementSquaredList[index] = (meanDisplacementSquaredList[index] + drunk.displacementSquared[index])
         drunk.reset()
-    plt.plot(runList, displacementSquaredList)
-    plt.suptitle("working")
-    plt.xlabel("Run number")
+    for i in range(0, walkLength):
+        meanDisplacementSquaredList[i] = meanDisplacementSquaredList[i] / numberOfRuns
+    plt.plot(runList, meanDisplacementSquaredList)
+    plt.suptitle("Average displacement squared vs time\nfor multiple runs")
+    plt.xlabel("Step number")
     plt.ylabel("Displacement squared")
     plt.grid(True)
     plt.show()
