@@ -26,3 +26,4 @@ class walker:
         self.positionList.clear()
         self.stepList.clear()
         self.position = self.startPosition
+
