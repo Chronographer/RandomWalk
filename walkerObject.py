@@ -42,4 +42,3 @@ class walker:
         self.stepList.clear()
         self.displacementSquaredList.clear()
         self.position = self.startPosition
-
