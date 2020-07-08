@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import walkerObject
 
 
@@ -9,15 +8,15 @@ numberOfRuns = 1000  # the number of runs the walker will perform
 minStepSize = -1  # the lower bound of the possible step size using walkerObject.walkUniform()
 maxStepSize = 1   # the upper bound of the possible step size using walkerObject.walkUniform()
 stepRange = 1     # the magnitude of the min/max step size using walkerObject.walkRange()
-averageList = []  # list containing the average position of the walker for each run
-numberOfHistogramBins = 100  # the number of bins to be used in function plotHistogramAveragePosition()
+numberOfHistogramBins = 500  # the number of bins to be used in function plotHistogramAveragePosition()
 
-drunk1 = walkerObject.walker(startPosition, walkLength)
-drunk2 = walkerObject.walker(startPosition, walkLength)
+walker1 = walkerObject.walker(startPosition, walkLength)
+walker2 = walkerObject.walker(startPosition, walkLength)
 
-def compareMultipleWalkers(drunk1, drunk2):
-    drunk1.reset()
-    drunk2.reset()
+
+def compareMultipleWalkers(drunk1, drunk2):  # Plots the position of two walkers over time on the same graph.
+    drunk1.reset()  # Always reset the information held in a walker before using it to remove any possibility of influencing...
+    drunk2.reset()  # ... the current walk with a previous one.
     drunk1.walkUniform(minStepSize, maxStepSize)
     drunk2.walkUniform(minStepSize, maxStepSize)
     plt.plot(drunk1.stepList, drunk1.positionList)
@@ -29,6 +28,7 @@ def compareMultipleWalkers(drunk1, drunk2):
     plt.xlabel("Step number")
     plt.ylabel("Position")
     plt.show()
+
 
 def plotAverageDisplacementVsTime(drunk):
     runList = []  # list to hold integers from 0 to numberOfRuns, used for plotting purposes
@@ -47,10 +47,13 @@ def plotAverageDisplacementVsTime(drunk):
     plt.suptitle("Average displacement squared vs time\nfor multiple runs")
     plt.xlabel("Step number")
     plt.ylabel("Displacement squared")
-    plt.ylim(0, 100)
-    plt.xlim(0, 100)
+    for i in range(0, len(runList)):
+        print("step_number", "average_displacement_squared")
+        print(runList[i], meanDisplacementSquaredList[i])
+    plt.ylim(0, 1000)  # manually setting the y axis range provides a more intuitive sense of the graphs behavior than matplotlib's default auto-scaling in this particular case.
     plt.grid(True)
     plt.show()
+
 
 def plotAveragePositionEachRun(drunk):  # Plots the average position of a walker at the end of its walk for numberOfRuns walks.
     masterList = drunk.computeAveragePositionForMultipleRuns(minStepSize, maxStepSize, numberOfRuns)
@@ -64,15 +67,17 @@ def plotAveragePositionEachRun(drunk):  # Plots the average position of a walker
     plt.grid(True)
     plt.show()
 
+
 def plotHistogramAveragePosition(drunk, numberOfBins):  # Plots the average position of a walker at the end of its walk as a histogram for a number of walks.
     masterList = drunk.computeAveragePositionForMultipleRuns(minStepSize, maxStepSize, numberOfRuns)
     averageList = masterList[1]
     plt.hist(averageList, numberOfBins)
-    plt.suptitle("histogram of avarage position after each run")
+    plt.suptitle("histogram of average position after each run")
     plt.xlabel("average position after run")
     plt.ylabel("number of runs in respective range")
     plt.grid(False)
     plt.show()
+
 
 def plotPositionAtEndOfEachRun(drunk):  # Plots the final position of the walker at the end of each run.
     finalPositionList = []
@@ -90,6 +95,7 @@ def plotPositionAtEndOfEachRun(drunk):  # Plots the final position of the walker
     plt.grid(True)
     plt.show()
 
+
 def plotPositionAtEndOfRunHistogram(drunk, numberOfBins):  # Plots the final position of the walker at the end of each walk as a histogram for a number of runs.
     finalPositionList = []
     runList = []
@@ -105,9 +111,10 @@ def plotPositionAtEndOfRunHistogram(drunk, numberOfBins):  # Plots the final pos
     plt.grid(False)
     plt.show()
 
-compareMultipleWalkers(drunk1, drunk2)
-plotAverageDisplacementVsTime(drunk1)
-#plotAveragePositionEachRun(drunk1)
-#plotHistogramAveragePosition(drunk1, numberOfHistogramBins)
-#plotPositionAtEndOfEachRun(drunk1)
-#plotPositionAtEndOfRunHistogram(drunk1, numberOfHistogramBins)
+
+compareMultipleWalkers(walker1, walker2)
+plotAverageDisplacementVsTime(walker1)
+# plotAveragePositionEachRun(walker1)
+# plotHistogramAveragePosition(walker1, numberOfHistogramBins)
+# plotPositionAtEndOfEachRun(walker1)
+# plotPositionAtEndOfRunHistogram(walker1, numberOfHistogramBins)
