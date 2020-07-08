@@ -47,8 +47,8 @@ def plotAverageDisplacementVsTime(drunk):
     plt.suptitle("Average displacement squared vs time\nfor multiple runs")
     plt.xlabel("Step number")
     plt.ylabel("Displacement squared")
+    print("step_number", "average_displacement_squared")
     for i in range(0, len(runList)):
-        print("step_number", "average_displacement_squared")
         print(runList[i], meanDisplacementSquaredList[i])
     plt.ylim(0, 1000)  # manually setting the y axis range provides a more intuitive sense of the graphs behavior than matplotlib's default auto-scaling in this particular case.
     plt.grid(True)
